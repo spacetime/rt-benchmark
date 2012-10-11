@@ -70,7 +70,6 @@ function mandelbrot_benchmark() {
          func: mandelbrot_computeSequentially},
         {name: "par",
          func: function() {
-             return mandelbrot_computeSequentially();
-             // new ParallelArray([rows, cols], computeSetByRow)
+             new ParallelArray([rows, cols], mandelbrot_computeSetByRow);
          }}]);
 }
