@@ -1,0 +1,28 @@
+<html>
+<head>
+<title>Rivertrail Benchmark</title>
+<script src="util.js" type="application/javascript"></script>
+<script src="mandelbrot.js" type="application/javascript"></script>
+</head>
+<body>
+
+
+<hr>
+<h3>Mandelbrot</h3>
+<table border="1">
+    <tr>
+      <th>Sequential (ms)</th>
+      <th>Parallel (ms)</th>
+      <th>Ratio (seq / par)</th>
+    </tr>
+    <tr>
+      <td id="mandelbrot-seq">N/A</td>
+      <td id="mandelbrot-par">N/A</td>
+      <td id="mandelbrot-seq-par-ratio">N/A</td>
+</table>
+
+<form>
+<input type="submit" onclick="mandelbrot_benchmark()" value="Run">
+</form>
+
+</body>
