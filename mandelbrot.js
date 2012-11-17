@@ -53,8 +53,8 @@ function mandelbrot_computeSequentially() {
 }
 
 var scale = 10000*300;
-var rows = 512;
-var cols = 512;
+var rows = 1024;
+var cols = 1024;
 
 mandelbrot_computeColorMap();
 
@@ -64,12 +64,33 @@ function mandelbrot_warmup() {
     }
 }
 
+
 function mandelbrot_benchmark() {
     comparePerformance("mandelbrot", [
         {name: "seq",
          func: mandelbrot_computeSequentially},
         {name: "par",
          func: function() {
-             new ParallelArray([rows, cols], mandelbrot_computeSetByRow);
+             return new ParallelArray([rows, cols], mandelbrot_computeSetByRow);
          }}]);
+}
+
+function writeCanvas (canvas, mandelbrot) {
+    console.log(typeof(mandelbrot));
+    var context = canvas.getContext("2d");
+    var image = context.createImageData(rows, cols);
+    var pix = image.data, c = 0, ic;
+    for (var t1 = 0; t1 < rows; t1++) {
+      for (var t2 = 0; t2 < cols; t2++) {
+// 	var i = mandelbrot[t1*rows + t2];
+	var i = mandelbrot[t1][t2];
+        if (i == 512) ic = maxCol;
+        else ic = i % maxCol;
+        pix[c++] = cr[ic];  
+        pix[c++] = cg[ic];  
+        pix[c++] = cb[ic];  
+        pix[c++] = 255;
+    }
+    }
+  context.putImageData(image, 0, 0);
 }

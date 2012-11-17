@@ -3,12 +3,15 @@ function comparePerformance(tag, opts) {
 
     for (var i = 0; i < opts.length; i++) {
         var start = new Date();
-        opts[i].func();
+        var result = opts[i].func();
+	console.log(typeof(result));
         var end = new Date();
         var diff = (end.getTime() - start.getTime());
         measurements.push(diff);
-
         console.log(opts[i].name + " took: " + diff + " ms");
+	var canvas = document.getElementById(opts[i].name);
+	writeCanvas(canvas, result);
+	console.log(opts[i].name + " took: " + diff + " ms");
     }
 
     for (var i = 0; i < opts.length; i++) {
@@ -23,4 +26,8 @@ function comparePerformance(tag, opts) {
         var td = document.getElementById(id);
         td.textContent = ratio;
     }
+    
+
+    
+   
 }
